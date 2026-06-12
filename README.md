@@ -11,13 +11,6 @@
 
 It fuses the cognitive, semantic strengths of **Dense Vector Retrieval (FAISS)** with the rigid, factually correct logic of **FTS5 Symbolic Relational Search (SQLite)** using a dynamic, adaptive weighting algorithm and Reciprocal Rank Fusion (RRF).
 
----
-
-## 🎨 System Concept
-
-![HybridLM Conceptual Architecture](images/hybrid_lm_architecture.png)
-
----
 
 ## 🏗️ Architecture & System Flow
 
