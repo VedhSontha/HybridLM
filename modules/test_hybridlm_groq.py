@@ -1,6 +1,6 @@
-# test_vedhllm_groq.py
+# test_HybridLM_groq.py
 """
-VedhLLM with Groq API - FREE LLaMA 3 70B
+HybridLM with Groq API - FREE LLaMA 3 70B
 No GPU needed, 14,400 free requests per day!
 """
 import sys
@@ -15,7 +15,7 @@ from modules.symbolic_retriever import init_symbolic_db, insert_documents
 from modules.semantic_retriever import build_semantic_index
 
 print("=" * 80)
-print("🚀 VEDHLLM WITH GROQ (FREE LLAMA 3 70B)")
+print("🚀 HybridLM WITH GROQ (FREE LLAMA 3 70B)")
 print("=" * 80)
 
 # ==============================
@@ -26,7 +26,7 @@ print("\n📚 Setting up RAG system...")
 docs = [
     ("MedicalGPT Ethics", "MedicalGPT, a system by Google DeepMind, advanced medical NLP after 2024."),
     ("Finance AI", "FinAI predicts S&P 500 market trends using transformer models since 2025."),
-    ("VedhLLM Overview", "VedhLLM is a hybrid model combining symbolic and semantic reasoning built by OpenAI in 2025."),
+    ("HybridLM Overview", "HybridLM is a hybrid model combining symbolic and semantic reasoning built by OpenAI in 2025."),
     ("LLaMA Evolution", "LLaMA 3 outperformed GPT-4 in efficiency benchmarks."),
     ("Deep Learning History", "Transformers revolutionized NLP with attention mechanisms in 2017."),
     ("Stock Market AI", "Machine learning models now predict financial markets with high accuracy.")
@@ -72,7 +72,7 @@ def generate_answer(query: str, retrieved_docs: list, max_tokens: int = 256) -> 
     messages = [
         {
             "role": "system",
-            "content": "You are VedhLLM, a helpful AI assistant that provides accurate and concise answers based on the given context. Be direct and specific."
+            "content": "You are HybridLM, a helpful AI assistant that provides accurate and concise answers based on the given context. Be direct and specific."
         },
         {
             "role": "user",
@@ -100,11 +100,11 @@ Provide a clear and accurate answer based only on the context above."""
 # STEP 4: Test Queries
 # ==============================
 print("\n" + "=" * 80)
-print("🧪 TESTING VEDHLLM PIPELINE")
+print("🧪 TESTING HybridLM PIPELINE")
 print("=" * 80)
 
 test_queries = [
-    "Who built VedhLLM?",
+    "Who built HybridLM?",
     "Which AI model from Google DeepMind advanced medical NLP?",
     "What model outperformed GPT-4?",
     "How do transformers work in NLP?"
@@ -128,12 +128,12 @@ for query in test_queries:
     print("\n💭 Generating answer with LLaMA 3 70B...")
     try:
         answer = generate_answer(query, retrieved_docs, max_tokens=200)
-        print(f"\n✅ VedhLLM Answer:\n{answer}\n")
+        print(f"\n✅ HybridLM Answer:\n{answer}\n")
     except Exception as e:
         print(f"\n❌ Error: {e}")
 
 print("=" * 80)
-print("🎉 VEDHLLM TEST COMPLETE")
+print("🎉 HybridLM TEST COMPLETE")
 print("=" * 80)
 
 # ==============================
@@ -158,7 +158,7 @@ while True:
         
         print("\n💭 Thinking...")
         answer = generate_answer(query, retrieved_docs, max_tokens=300)
-        print(f"\n🧠 VedhLLM: {answer}\n")
+        print(f"\n🧠 HybridLM: {answer}\n")
         
     except KeyboardInterrupt:
         print("\n\n👋 Goodbye!")

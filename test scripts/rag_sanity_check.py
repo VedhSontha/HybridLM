@@ -23,7 +23,7 @@ tp = TextPreprocessor()
 docs = [
     ("MedicalGPT Ethics", "MedicalGPT, a system by Google DeepMind, advanced medical NLP after 2024."),
     ("Finance AI", "FinAI predicts S&P 500 market trends using transformer models since 2025."),
-    ("VedhLLM Overview", "VedhLLM is a hybrid model combining symbolic and semantic reasoning built by OpenAI in 2025."),
+    ("HybridLM Overview", "HybridLM is a hybrid model combining symbolic and semantic reasoning built by OpenAI in 2025."),
     ("LLaMA Evolution", "LLaMA 3 outperformed GPT-4 in efficiency benchmarks."),
     ("Deep Learning History", "Transformers revolutionized NLP with attention mechanisms in 2017."),
     ("Stock Market AI", "Machine learning models now predict financial markets with high accuracy."),
@@ -44,7 +44,7 @@ queries = [
     "v e d h L L M launched by 0pen.AI in the year after 2024!",
     "Which AI model from Google DeepMind advanced medical NLP?",
     "AI predicting stock markets",
-    "Who built VedhLLM?",
+    "Who built HybridLM?",
     "Which model outperformed GPT-4?",
     "symbolic and semantic hybrid model by OpenAI",
     "How do transformers work in NLP?",

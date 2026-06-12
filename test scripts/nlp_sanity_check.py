@@ -20,8 +20,8 @@ tests = [
     {
         "name": "Spaced entity + year corruption",
         "input": "v e d h L L M launched by 0pen.AI in the year after 2024!!!",
-        "expected_entities": ["VedhLLM", "OpenAI"],
-        "expected_in_text": ["VedhLLM", "OpenAI", "2025"],
+        "expected_entities": ["HybridLM", "OpenAI"],
+        "expected_in_text": ["HybridLM", "OpenAI", "2025"],
         "min_tokens": 4
     },
     {
@@ -47,9 +47,9 @@ tests = [
     },
     {
         "name": "Short entity query",
-        "input": "Who built VedhLLM?",
-        "expected_entities": ["VedhLLM"],
-        "expected_in_text": ["VedhLLM"],
+        "input": "Who built HybridLM?",
+        "expected_entities": ["HybridLM"],
+        "expected_in_text": ["HybridLM"],
         "min_tokens": 2
     },
     {

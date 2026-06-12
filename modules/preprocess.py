@@ -1,6 +1,6 @@
 # modules/preprocess.py
 """
-VedhLLM NLP Preprocessing module
+HybridLM NLP Preprocessing module
 --------------------------------
 Provides a deterministic, entity-aware preprocessing pipeline:
 - Unicode normalization
@@ -98,7 +98,7 @@ class SequenceEncoder(nn.Module if TORCH_AVAILABLE else object):
 # -------------------------
 class TextPreprocessor:
     """
-    Main preprocessing pipeline for VedhLLM.
+    Main preprocessing pipeline for HybridLM.
 
     Args:
         spacy_model: spaCy model name (default 'en_core_web_sm')
@@ -168,15 +168,15 @@ class TextPreprocessor:
     @staticmethod
     def restore_entities(text: str) -> str:
         """
-        VedhLLM EASR v4.1 — Final hybrid version.
+        HybridLM EASR v4.1 — Final hybrid version.
         Fixes:
-        • 'v e d h L L M' → VedhLLM (spacing too loose)
+        • 'v e d h L L M' → HybridLM (spacing too loose)
         • 'gppT-5' / 'GPT5' → GPT-5 (dashless variants)
         • 's&p' → S&P (better grouping)
         """
 
         # --- MODEL & ORG RESTORATION ---
-        text = re.sub(r"v[\s\.\-]*e[\s\.\-]*d[\s\.\-]*h[\s\.\-]*l[\s\.\-]*l[\s\.\-]*m+", "VedhLLM", text, flags=re.IGNORECASE)
+        text = re.sub(r"v[\s\.\-]*e[\s\.\-]*d[\s\.\-]*h[\s\.\-]*l[\s\.\-]*l[\s\.\-]*m+", "HybridLM", text, flags=re.IGNORECASE)
         text = re.sub(r"0pen[\.\-]*ai", "OpenAI", text, flags=re.IGNORECASE)
         text = re.sub(r"g+p+p*t[\s\-\_]*([0-9]+)", r"GPT-\1", text, flags=re.IGNORECASE)  # ← FIXED
         text = re.sub(r"medicalg+p*t", "MedicalGPT", text, flags=re.IGNORECASE)
@@ -208,7 +208,7 @@ class TextPreprocessor:
 
         # --- SMART CAPITALIZATION ---
         important_terms = [
-            "VedhLLM", "OpenAI", "MedicalGPT", "DeepMind", "Google",
+            "HybridLM", "OpenAI", "MedicalGPT", "DeepMind", "Google",
             "GPT", "FinAI", "LLaMA", "S&P", "AI",
             "HTTP", "HTTPS", "URL", "API", "CPU", "GPU", "RAM", "USB"
         ]
@@ -275,7 +275,7 @@ class TextPreprocessor:
         
 
         protected_terms = [
-            "VedhLLM", "OpenAI", "MedicalGPT", "DeepMind", "Google",
+            "HybridLM", "OpenAI", "MedicalGPT", "DeepMind", "Google",
             "GPT", "LLaMA", "FinAI", "S&P", "AI", "HTTP", "CPU", "GPU", "URL"
         ]
         

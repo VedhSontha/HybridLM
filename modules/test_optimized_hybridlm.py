@@ -1,6 +1,6 @@
-# test_optimized_vedhllm.py
+# test_optimized_HybridLM.py
 """
-🧠 Test Script for VedhLLMOptimized
+🧠 Test Script for HybridLMOptimized
 Full pipeline:
 NLP → Symbolic + Semantic RAG → Bridge → LLaMA Generation
 """
@@ -14,14 +14,14 @@ import torch
 # Ensure modules are importable
 sys.path.append(os.path.dirname(__file__))
 
-from modules.hybrid_model_optimized import VedhLLMOptimized
+from modules.hybrid_model_optimized import HybridLMOptimized
 from modules.fusion_retriever import hybrid_search
 from modules.symbolic_retriever import init_symbolic_db, insert_documents
 from modules.semantic_retriever import build_semantic_index
 
 
 print("=" * 80)
-print("🚀 INITIALIZING VEDHLLM HYBRID PIPELINE")
+print("🚀 INITIALIZING HybridLM HYBRID PIPELINE")
 print("=" * 80)
 
 # ==============================
@@ -32,7 +32,7 @@ print("\n📚 Setting up RAG system...")
 docs = [
     ("MedicalGPT Ethics", "MedicalGPT, a system by Google DeepMind, advanced medical NLP after 2024."),
     ("Finance AI", "FinAI predicts S&P 500 market trends using transformer models since 2025."),
-    ("VedhLLM Overview", "VedhLLM is a hybrid model combining symbolic and semantic reasoning built by OpenAI in 2025."),
+    ("HybridLM Overview", "HybridLM is a hybrid model combining symbolic and semantic reasoning built by OpenAI in 2025."),
     ("LLaMA Evolution", "LLaMA 3 outperformed GPT-4 in efficiency benchmarks."),
     ("Deep Learning History", "Transformers revolutionized NLP with attention mechanisms in 2017."),
     ("Stock Market AI", "Machine learning models now predict financial markets with high accuracy.")
@@ -48,20 +48,20 @@ print("✅ Symbolic + Semantic retrieval system ready!")
 # ==============================
 # STEP 2: Initialize Hybrid Model
 # ==============================
-print("\n🦙 Loading VedhLLMOptimized (BERT + Bridge + LLaMA 2)...")
-model = VedhLLMOptimized(
+print("\n🦙 Loading HybridLMOptimized (BERT + Bridge + LLaMA 2)...")
+model = HybridLMOptimized(
     encoder_name="bert-base-uncased",
     decoder_name="meta-llama/Llama-2-7b-chat-hf",
     use_4bit=True,         # Enable 4-bit quantization for 8GB GPUs
     offload_encoder=True   # Offload encoder to CPU during decoding
 )
-print("✅ VedhLLMOptimized initialized successfully!\n")
+print("✅ HybridLMOptimized initialized successfully!\n")
 
 # ==============================
 # STEP 3: Run Test Queries
 # ==============================
 queries = [
-    "Who built VedhLLM?",
+    "Who built HybridLM?",
     "Which AI model from Google DeepMind advanced medical NLP?",
     "What model outperformed GPT-4?",
     "How do transformers work in NLP?"
@@ -95,7 +95,7 @@ for query in queries:
 
 
 print("=" * 80)
-print("🎉 VEDHLLM HYBRID TEST COMPLETE")
+print("🎉 HybridLM HYBRID TEST COMPLETE")
 print("=" * 80)
 
 
@@ -108,7 +108,7 @@ while True:
     try:
         query = input("🤔 Your question: ").strip()
         if query.lower() in ["exit", "quit", "q"]:
-            print("👋 Exiting VedhLLM...")
+            print("👋 Exiting HybridLM...")
             break
         if not query:
             continue
@@ -123,7 +123,7 @@ while True:
             max_new_tokens=256,
             temperature=0.7
         )
-        print(f"\n🧠 VedhLLM: {answer}\n")
+        print(f"\n🧠 HybridLM: {answer}\n")
     
     except KeyboardInterrupt:
         print("\n👋 Goodbye!")

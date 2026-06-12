@@ -1,6 +1,6 @@
 # modules/hybrid_model_optimized.py
 """
-Memory-optimized VedhLLM for RTX 4060 (8GB)
+Memory-optimized HybridLM for RTX 4060 (8GB)
 Strategy: Load models lazily, use gradient checkpointing, aggressive garbage collection
 """
 from .bridge import Bridge
@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-class VedhLLMOptimized(nn.Module):
+class HybridLMOptimized(nn.Module):
     """
     Memory-optimized hybrid model for 8GB GPU.
     
@@ -52,7 +52,7 @@ class VedhLLMOptimized(nn.Module):
             gc.collect()
         
         logger.info("=" * 70)
-        logger.info("🚀 Initializing Memory-Optimized VedhLLM")
+        logger.info("🚀 Initializing Memory-Optimized HybridLM")
         logger.info("=" * 70)
         
         # ============ ENCODER (BERT) - Load immediately ============
@@ -209,7 +209,7 @@ class VedhLLMOptimized(nn.Module):
     def construct_prompt(self, query: str, retrieved_docs: list, system_prompt: str = None):
         """Construct LLaMA 2 chat prompt."""
         if system_prompt is None:
-            system_prompt = "You are VedhLLM, a helpful AI assistant that answers questions accurately and concisely based on the provided context."
+            system_prompt = "You are HybridLM, a helpful AI assistant that answers questions accurately and concisely based on the provided context."
         
         # Build context
         context_parts = []

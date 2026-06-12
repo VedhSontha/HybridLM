@@ -13,12 +13,12 @@ def detect_query_type(query: str):
     not the lowercased/masked version.
     """
     # Restore entities first for better detection
-    # This keeps "VedhLLM", "2024", "S&P" etc. intact
+    # This keeps "HybridLM", "2024", "S&P" etc. intact
     restored = tp.restore_entities(query)
     
     # --- Heuristic cues for weighting ---
     entity_keywords = [
-        "GPT", "LLaMA", "VedhLLM", "OpenAI", "DeepMind", 
+        "GPT", "LLaMA", "HybridLM", "OpenAI", "DeepMind", 
         "FinAI", "MedicalGPT", "S&P", "Google"
     ]
     has_entities = any(entity in restored for entity in entity_keywords)
@@ -65,12 +65,12 @@ def hybrid_search(query, top_k=3, verbose=False):
     """
     
     # --- Step 1: Restore entities (CRITICAL for symbolic search) ---
-    # This converts "v e d h l l m" → "VedhLLM"
+    # This converts "v e d h l l m" → "HybridLM"
     # and "the year after 2024" → "2025"
     q_restored = tp.restore_entities(query)
     
     # --- Step 2: Detect query type using restored query ---
-    # This needs to see "VedhLLM" not "v e d h l l m" to work correctly
+    # This needs to see "HybridLM" not "v e d h l l m" to work correctly
     α, β = detect_query_type(query)  # Use original query for detection
     
     if verbose:
@@ -79,7 +79,7 @@ def hybrid_search(query, top_k=3, verbose=False):
         print(f"🎯 Fusion Weights → Symbolic={α:.2f}, Semantic={β:.2f}")
     
     # --- Step 3: Symbolic retrieval (uses RESTORED query) ---
-    # FTS5 needs "VedhLLM" to match documents, not "v e d h l l m"
+    # FTS5 needs "HybridLM" to match documents, not "v e d h l l m"
     sym_results = symbolic_search(q_restored, top_k=top_k * 2)
     sym_dict = {}
     
@@ -94,7 +94,7 @@ def hybrid_search(query, top_k=3, verbose=False):
     
     # --- Step 4: Semantic retrieval (uses ORIGINAL query) ---
     # Semantic embeddings work better with natural language
-    # "Who built VedhLLM?" is better than "who built vedhllm"
+    # "Who built HybridLM?" is better than "who built HybridLM"
     sem_results = semantic_search(query, top_k=top_k * 2)
     
     for title, content, sim_score in sem_results:
