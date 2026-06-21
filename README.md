@@ -79,10 +79,19 @@ LLM/
 
 ## ⚡ Quickstart Guide
 
-### 1. Install Dependencies
+### 1. Clone & Navigate
+```bash
+git clone https://github.com/VedhSontha/HybridLM.git
+cd HybridLM
+```
+
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
+
+> [!NOTE]
+> This system has been verified and optimized for consumer GPUs like the **NVIDIA RTX 4060 (8GB VRAM)** running on local CUDA environments.
 
 ### 2. Run Sanity Checks
 Ensure the preprocessors and databases are functioning correctly:
