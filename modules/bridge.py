@@ -3,6 +3,7 @@
 Bridge module — aligns encoder (BERT) embeddings with decoder (LLaMA) space.
 """
 
+import os
 import torch
 from torch import nn
 
@@ -32,7 +33,7 @@ class Bridge(nn.Module):
         return self.projection(x)
 
     def save_pretrained(self, path: str):
-        torch.save(self.state_dict(), f"{path}/bridge.pt")
+        torch.save(self.state_dict(), os.path.join(path, "bridge.pt"))
 
     def load_pretrained(self, path: str):
-        self.load_state_dict(torch.load(f"{path}/bridge.pt", map_location="cpu"))
+        self.load_state_dict(torch.load(os.path.join(path, "bridge.pt"), map_location="cpu"))
