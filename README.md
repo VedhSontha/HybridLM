@@ -43,6 +43,16 @@ $$\mathbf{H}_{\text{projected}} = \text{LayerNorm}(\mathbf{H}_{\text{encoder}} \
 
 The projection bridge maps the semantic hidden state vector of BERT to the latent space of the causal language model, preserving local manifold structure while matching target dimensions.
 
+#### Weight Persistence
+The bridge supports cross-platform directory resolution for saving and loading the representation projection parameters:
+```python
+# Save trained projection states
+bridge.save_pretrained("./checkpoints")
+
+# Load pre-trained projection states
+bridge.load_pretrained("./checkpoints")
+```
+
 ### 3. Edge GPU Memory Optimization Strategy
 To enable full local execution on **8GB VRAM consumer GPUs**, HybridLM implements a strict memory scheduling protocol:
 * **Lazy Loading:** Language decoder model is only loaded into GPU memory when generation is actively triggered.
