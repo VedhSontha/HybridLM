@@ -124,19 +124,18 @@ class TextPreprocessor:
         self._nlp: Optional[Language] = None
         self.enable_lstm_summary = enable_lstm_summary
 
-        if spacy is None:
-            raise ImportError("spaCy is required by modules.preprocess. Install with `pip install spacy` "
-                              "and download a model `python -m spacy download en_core_web_sm`.")
-
-        # Lazy load spaCy model
-        try:
-            self._nlp = spacy.load(self.spacy_model, disable=["parser"])  # parser can be re-enabled if wanted
-            # If we want sentence segmentation we'll enable parser, but we can also use sentencizer.
-            if not self._nlp.has_pipe("sentencizer"):
-                self._nlp.add_pipe("sentencizer")
-        except Exception as e:
-            logger.error("Failed to load spaCy model '%s': %s", self.spacy_model, e)
-            raise
+        self._nlp = None
+        if spacy is not None:
+            # Lazy load spaCy model
+            try:
+                self._nlp = spacy.load(self.spacy_model, disable=["parser"])  # parser can be re-enabled if wanted
+                # If we want sentence segmentation we'll enable parser, but we can also use sentencizer.
+                if not self._nlp.has_pipe("sentencizer"):
+                    self._nlp.add_pipe("sentencizer")
+            except Exception as e:
+                logger.warning("Failed to load spaCy model '%s'. Running in fallback mode: %s", self.spacy_model, e)
+        else:
+            logger.warning("spaCy is not installed. Running in fallback mode.")
 
         if enable_lstm_summary:
             if not TORCH_AVAILABLE:
@@ -333,8 +332,16 @@ class TextPreprocessor:
     # -------------------------
     def analyze(self, text: str) -> Tuple[List[str], List[str], List[str], List[Dict[str, str]], List[str]]:
         """
-        Run spaCy pipeline and return tokens, lemmas, pos_tags, entities (list of dicts), sentences.
+        Run spaCy pipeline if available, else fallback to basic tokenization and sentence splitting.
         """
+        if self._nlp is None:
+            tokens = self.custom_tokenize(text)
+            lemmas = [t.lower() for t in tokens]
+            pos_tags = ["UNKNOWN" for _ in tokens]
+            ents = []
+            sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+            return tokens, lemmas, pos_tags, ents, sentences
+
         doc = self._nlp(text)
         tokens = [t.text for t in doc]
         lemmas = [t.lemma_ for t in doc]
