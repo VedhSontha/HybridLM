@@ -30,10 +30,11 @@ def detect_query_type(query: str):
         "how", "why", "explain", "describe", "similar", 
         "like", "compare", "difference", "relationship"
     ]
-    is_semantic = any(word in query.lower() for word in semantic_indicators)
+    restored_lower = restored.lower()
+    is_semantic = any(word in restored_lower for word in semantic_indicators)
     
     factual_indicators = ["who", "what", "which"]
-    is_factual = any(word in query.lower() for word in factual_indicators)
+    is_factual = any(word in restored_lower for word in factual_indicators)
     
     # --- Adaptive weighting ---
     if has_entities or has_temporal:
