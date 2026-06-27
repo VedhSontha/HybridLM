@@ -48,7 +48,7 @@ def semantic_search(query, top_k=3):
     
     results = []
     for j, i in enumerate(I[0]):
-        if i < len(doc_map):  # Valid index
+        if 0 <= i < len(doc_map):  # Valid index (prevent python negative index wrapping for FAISS sentinel -1)
             results.append((
                 doc_map[i]["title"], 
                 doc_map[i]["content"], 
