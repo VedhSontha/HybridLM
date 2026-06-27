@@ -47,6 +47,8 @@ def symbolic_search(query, top_k=3):
     
     # Split into terms, keeping important entities
     terms = [t.strip() for t in q_restored.split() if len(t.strip()) > 1]
+    if not terms:
+        return []
     
     # Build FTS5 match expression (OR all terms for broader recall)
     match_expr = " OR ".join([f'"{term}"' for term in terms])
