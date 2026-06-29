@@ -48,12 +48,13 @@ print("✅ Symbolic + Semantic retrieval system ready!")
 # ==============================
 # STEP 2: Initialize Hybrid Model
 # ==============================
-print("\n🦙 Loading HybridLMOptimized (BERT + Bridge + LLaMA 2)...")
+print("\n🦙 Loading HybridLMOptimized (BERT + Bridge + TinyLlama)...")
+use_cuda = torch.cuda.is_available()
 model = HybridLMOptimized(
     encoder_name="bert-base-uncased",
-    decoder_name="meta-llama/Llama-2-7b-chat-hf",
-    use_4bit=True,         # Enable 4-bit quantization for 8GB GPUs
-    offload_encoder=True   # Offload encoder to CPU during decoding
+    decoder_name="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    use_4bit=use_cuda,         # Enable 4-bit quantization only if CUDA is available
+    offload_encoder=use_cuda   # Offload encoder to CPU during decoding only if CUDA is available
 )
 print("✅ HybridLMOptimized initialized successfully!\n")
 
@@ -91,7 +92,8 @@ for query in queries:
     )
     
     print(f"\n✅ Answer:\n{answer}\n")
-    print(f"💾 GPU Memory in use: {torch.cuda.memory_allocated()/1024**3:.2f} GB")
+    if torch.cuda.is_available():
+        print(f"💾 GPU Memory in use: {torch.cuda.memory_allocated()/1024**3:.2f} GB")
 
 
 print("=" * 80)
