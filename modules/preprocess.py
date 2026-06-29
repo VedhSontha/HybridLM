@@ -151,6 +151,8 @@ class TextPreprocessor:
     @staticmethod
     def normalize_unicode(text: str) -> str:
         text = unicodedata.normalize("NFKC", text)
+        # normalize smart quotes/apostrophes to standard ASCII
+        text = text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
         # remove zero-width characters
         text = re.sub(r"[\u200B-\u200D\uFEFF]", "", text)
         return text
