@@ -213,8 +213,14 @@ class HybridLMOptimized(nn.Module):
         
         # Build context
         context_parts = []
-        for i, (title, content) in enumerate(retrieved_docs, 1):
-            context_parts.append(f"[{i}] {title}: {content}")
+        for i, doc in enumerate(retrieved_docs, 1):
+            if isinstance(doc, tuple) and len(doc) >= 2:
+                title, body = doc[0], doc[1]
+                if isinstance(body, dict) and "content" in body:
+                    body = body["content"]
+                context_parts.append(f"[{i}] {title}: {body}")
+            else:
+                context_parts.append(f"[{i}] {doc}")
         
         context_str = "\n".join(context_parts)
         
