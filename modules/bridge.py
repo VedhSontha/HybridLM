@@ -33,7 +33,11 @@ class Bridge(nn.Module):
         return self.projection(x)
 
     def save_pretrained(self, path: str):
+        os.makedirs(path, exist_ok=True)
         torch.save(self.state_dict(), os.path.join(path, "bridge.pt"))
 
     def load_pretrained(self, path: str):
-        self.load_state_dict(torch.load(os.path.join(path, "bridge.pt"), map_location="cpu"))
+        file_path = os.path.join(path, "bridge.pt")
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"No bridge checkpoint found at: {file_path}")
+        self.load_state_dict(torch.load(file_path, map_location="cpu"))
