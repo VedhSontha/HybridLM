@@ -45,8 +45,8 @@ def symbolic_search(query, top_k=3):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
-    # Split into terms, keeping important entities
-    terms = [t.strip() for t in q_restored.split() if len(t.strip()) > 1]
+    # Split into terms, keeping important entities, and sanitize quotes to prevent FTS5 syntax errors
+    terms = [t.strip().replace('"', '') for t in q_restored.split() if len(t.strip()) > 1]
     if not terms:
         return []
     
