@@ -130,5 +130,8 @@ while True:
     except KeyboardInterrupt:
         print("\n👋 Goodbye!")
         break
+    except EOFError:
+        print("\n👋 Standard input closed. Exiting...")
+        break
     except Exception as e:
         print(f"❌ Error: {e}")
