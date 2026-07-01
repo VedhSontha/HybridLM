@@ -15,11 +15,17 @@ def build_semantic_index():
     """Build FAISS index from all documents in database."""
     global index, doc_map
 
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT rowid, title, content FROM documents;")
-    docs = cursor.fetchall()
-    conn.close()
+    docs = []
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT rowid, title, content FROM documents;")
+        docs = cursor.fetchall()
+    except sqlite3.OperationalError:
+        pass
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
     if not docs:
         print("⚠️  No documents found for semantic indexing")
