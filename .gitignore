@@ -11,3 +11,6 @@ __pycache__/
 # Jupyter Notebook Checkpoints
 .ipynb_checkpoints/
 */.ipynb_checkpoints/
+
+# SQLite temporary journals
+*.db-journal
