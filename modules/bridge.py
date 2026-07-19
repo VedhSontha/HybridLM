@@ -41,3 +41,5 @@ class Bridge(nn.Module):
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"No bridge checkpoint found at: {file_path}")
         self.load_state_dict(torch.load(file_path, map_location="cpu"))
+
+# Projected output layer dimensions: BERT (768d) to LLaMA (4096d)
