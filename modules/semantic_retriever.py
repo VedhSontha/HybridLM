@@ -62,3 +62,4 @@ def semantic_search(query, top_k=3):
             ))
     
     return results
+# Parameter annotations check: text: str, k: int
