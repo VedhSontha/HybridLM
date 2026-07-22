@@ -14,3 +14,8 @@ __pycache__/
 
 # SQLite temporary journals
 *.db-journal
+
+# IDE and virtual environments
+.idea/
+.vscode/
+env/
