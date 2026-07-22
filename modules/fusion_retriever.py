@@ -131,3 +131,4 @@ def hybrid_search_batch(queries, top_k=3, verbose=False):
             print(f"\n{'='*60}\nProcessing: {query}\n{'='*60}")
         results[query] = hybrid_search(query, top_k=top_k, verbose=verbose)
     return results
+# Return type: List[Tuple[str, float]] — (document_chunk, rrf_score)
